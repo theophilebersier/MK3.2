@@ -9,7 +9,7 @@
 
 #define BED_X0 (2.f - BED_ZERO_REF_X) //1
 #define BED_Y0 (9.4f - BED_ZERO_REF_Y) //1
-#define BED_Xn (470.f - BED_ZERO_REF_X) // Nouvelle limite X (500mm - 30mm de marge)
+#define BED_Xn (470.f - BED_ZERO_REF_X) // Nouvelle limite X
 #define BED_Yn (213.4f - BED_ZERO_REF_Y) //205
 
 #else

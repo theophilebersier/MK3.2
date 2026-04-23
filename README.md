@@ -1,64 +1,63 @@
-# Projet Prusa MK3 "MK_Twin" - X-Axis 500mm
+# Prusa MK3 "MK_Twin" Project - X-Axis 500mm
 
-Bienvenue sur la documentation officielle du projet **MK_Twin**. 
-Ce dépôt contient le firmware modifié d'une Prusa MK3 (ou MK3S/+) pour étendre son axe X à **500 mm**, avec une motorisation doublée.
+Welcome to the official documentation for the **MK_Twin** project. 
+This repository contains the modified firmware for a Prusa MK3 (or MK3S/+) to extend its X-axis to **500 mm**, with a dual motor setup.
 
-*(Basé sur le code source Original Prusa i3 - GNU GPL 3).*
-
----
-
-## 1. Caractéristiques Mécaniques de la Machine
-* **Volume d'impression utile (X, Y, Z) :** 500 x 250 x 210 mm
-* **Motorisation Y :** Double moteur pas-à-pas NEMA 17 (câblés en parallèle sur le même driver).
-* **Plateau chauffant :** 2x Heatbeds magnétiques V2 d'origine.
-* **Palpage (Leveling) :** Système Prusa intelligent (G80), grille automatique étendue sur 470 mm.
+*(Based on the Original Prusa i3 source code - GNU GPL 3).*
 
 ---
 
-## 2. Modifications apportées au Firmware
-Pour référence future, voici les valeurs exactes qui ont été modifiées par rapport au firmware d'usine Prusa pour adapter le cerveau à la nouvelle mécanique :
-
-### Fichier `MK3.h & MK3S.h dans variants` (Limites et Puissance)
-* **Dimensions physiques :**
-  * `X_MAX_POS` passé à `500`
-* **Courant des moteurs (Drivers TMC2130) :**
-  * Pour compenser le poids des deux lits, le courant de maintien (`_H`) et de mouvement (`_R`) de l'axe Y a été augmenté pour gérer deux moteurs en parallèle (environ 390mA par moteur).
-  * `TMC2130_CURRENTS_H` : `{16, 35, 35, 30}` *(Y passe de 20 à 35)*
-  * `TMC2130_CURRENTS_R` : `{16, 35, 35, 30}` *(Y passe de 20 à 35)*
-
-### Fichier `mesh_bed_calibration.h` (Zone de Palpage Pinda)
-* Les limites virtuelles dans lesquelles la sonde a le droit de descendre ont été agrandies.
-* L'espacement de la grille de palpage se calcule automatiquement.
-  * `BED_Xn` passé à `470.f` (500mm - 30mm de marge de sécurité)
+## 1. Mechanical Specifications of the Machine
+* **Usable print volume (X, Y, Z):** 500 x 250 x 210 mm
+* **Y-axis motorization:** Dual NEMA 17 stepper motors (wired in parallel on the same driver).
+* **Heated bed:** 2x Original V2 magnetic heatbeds.
+* **Bed Leveling:** Smart Prusa system (G80), automatic grid extended to 470 mm.
 
 ---
 
-##  3. Guide de Compilation (VS Code & CMake)
+## 2. Firmware Modifications
+For future reference, here are the exact values that were modified compared to the factory Prusa firmware to adapt the brain to the new mechanics:
 
-Le firmware Prusa utilise **CMake**.
+### `MK3.h & MK3S.h in variants` Files (Limits and Power)
+* **Physical dimensions:**
+  * `X_MAX_POS` changed to `500`
+* **Motor current (TMC2130 Drivers):**
+  * To compensate for the weight of the two beds, the holding (`_H`) and running (`_R`) current of the Y-axis has been increased to handle two motors in parallel (approximately 390mA per motor).
+  * `TMC2130_CURRENTS_H`: `{16, 35, 35, 30}` *(Y goes from 20 to 35)*
+  * `TMC2130_CURRENTS_R`: `{16, 35, 35, 30}` *(Y goes from 20 to 35)*
 
-### Prérequis
-* Visual Studio Code avec l'extension **CMake Tools** installée.
-* Python installé sur le PC.
+### `mesh_bed_calibration.h` File (Pinda Probing Area)
+* The virtual limits within which the probe is allowed to trigger have been expanded.
+* The probing grid spacing is calculated automatically.
+  * `BED_Xn` changed to `470.f` (500mm - 30mm safety margin)
 
-### Procédure de compilation
-1. **IMPORTANT SOUS WINDOWS :** Placez le dossier `MK3.2` au plus près de la racine de votre disque (ex: `C:\MK3.2`). Ne compilez **JAMAIS** depuis un dossier "OneDrive", car la limite de caractères de Windows fera planter le compilateur avec l'erreur `CreateProcess: No such file or directory`.
-2. Ouvrez le dossier `MK3.2` dans Visual Studio Code.
-3. Ouvrez un terminal dans VS Code et lancez l'installation des dépendances avec :
+---
+
+## 3. Compilation Guide (VS Code & CMake)
+
+The Prusa firmware uses **CMake**.
+
+### Prerequisites
+* Visual Studio Code with the **CMake Tools** extension installed.
+* Python installed on the PC.
+
+### Compilation procedure
+1. **IMPORTANT ON WINDOWS:** Place the `MK3.2` folder as close to the root of your drive as possible (e.g., `C:\MK3.2`). **NEVER** compile from a "OneDrive" folder, as the Windows character limit will cause the compiler to crash with the error `CreateProcess: No such file or directory`.
+2. Open the `MK3.2` folder in Visual Studio Code.
+3. Open a terminal in VS Code and run the dependency installation with:
    `python .\utils\bootstrap.py`
-4. Sur la barre de gauche, ouvrez l'onglet **CMake** > **Build Targets**.
-5. Cherchez la cible **`ALL_ENGLISH`** (pour compiler rapidement sans les traductions européennes) et cliquez sur le bouton **Build**.
-6. Le fichier compilé se trouvera dans `build/MK3S_MK3S+_..._ENGLISH.hex`. *(Flashez-le avec PrusaSlicer).*
+4. On the left sidebar, open the **CMake** tab > **Build Targets**.
+5. Look for the **`ALL_ENGLISH`** target (to compile quickly without European translations) and click the **Build** button.
+6. The compiled file will be located in `build/MK3S_MK3S+_..._ENGLISH.hex`. *(Flash it using PrusaSlicer).*
 
 ---
 
+## 4. PrusaSlicer Configuration
 
-## 4. Configuration PrusaSlicer
+The firmware does all the work. The modifications in the Slicer are minor:
 
-Le firmware fait tout le travail. Les modifications dans le Slicer sont mineures :
-
-1. Prenez un profil `Original Prusa i3 MK3S & MK3S+` ou `Original Prusa i3 MK3` standard.
-2. Allez dans **Réglages de l'imprimante** > **Général** > **Forme du plateau**.
-3. Réglez les dimensions sur **X: 500** et **Y: 250** (selon vos plaques).
-4. **G-Code de démarrage :** Conservez le `G80` d'origine. Le firmware étirera automatiquement le palpage sur toute la plaque de 500 mm. La ligne de purge se fera également au bon endroit d'origine.
-5. **Sauvegarde :** Allez dans *Fichier > Exporter > Exporter le lot de configuration* pour sauvegarder vos profils personnalisés.
+1. Use a standard `Original Prusa i3 MK3S & MK3S+` or `Original Prusa i3 MK3` profile.
+2. Go to **Printer Settings** > **General** > **Bed shape**.
+3. Set the dimensions to **X: 500** and **Y: 250** (depending on your plates).
+4. **Start G-Code:** Keep the original `G80`. The firmware will automatically stretch the probing across the entire 500 mm plate. The purge line will also be drawn in its original correct location.
+5. **Saving:** Go to *File > Export > Export Config Bundle* to save your custom profiles.

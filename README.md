@@ -18,7 +18,7 @@ This repository contains the modified firmware for a Prusa MK3 (or MK3S/+) to ex
 ## 2. Firmware Modifications
 For future reference, here are the exact values that were modified compared to the factory Prusa firmware to adapt the brain to the new mechanics:
 
-### `MK3.h & MK3S.h in variants` Files (Limits and Power)
+### `MK3.h & MK3S.h` in variants Files (Limits and Power)
 * **Physical dimensions:**
   * `X_MAX_POS` changed to `500`
 * **Motor current (TMC2130 Drivers):**

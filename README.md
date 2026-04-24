@@ -67,7 +67,7 @@ The firmware does all the work. The modifications in the Slicer are minor:
 
 ## 5. Credits & Acknowledgements
 
-The 3D printed parts for this project build upon the fantastic work of the 3D printing community. 
+The 3D printed parts for this project utilize the work of the 3D printing community. 
 
-* **X-Axis Belt Tensioner & Motor Mount:** The modified X-axis parts used in the MK_Twin project are a remix based on the excellent design by **Boogie** on Printables.
+* **X-Axis Belt Tensioner & Motor Mount:** To ensure maximum rigidity for the 500mm axis, the MK_Twin project uses the excellent original design by **Boogie** on Printables.
   * Original model: [X-Axis revision with belt tensioner](https://www.printables.com/model/56241-x-axis-revision-with-belt-tensioner)

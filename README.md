@@ -61,3 +61,13 @@ The firmware does all the work. The modifications in the Slicer are minor:
 3. Set the dimensions to **X: 500** and **Y: 250** (depending on your plates).
 4. **Start G-Code:** Keep the original `G80`. The firmware will automatically stretch the probing across the entire 500 mm plate. The purge line will also be drawn in its original correct location.
 5. **Saving:** Go to *File > Export > Export Config Bundle* to save your custom profiles.
+
+
+---
+
+## 5. Credits & Acknowledgements
+
+The 3D printed parts for this project build upon the fantastic work of the 3D printing community. 
+
+* **X-Axis Belt Tensioner & Motor Mount:** The modified X-axis parts used in the MK_Twin project are a remix based on the excellent design by **MW (@MW_3D)** on Printables.
+  * Original model: [X-axis upgrade with linear rail, belt tensioner...](https://www.printables.com/model/281590)

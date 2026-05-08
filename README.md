@@ -14,6 +14,11 @@ This repository contains the modified firmware for a Prusa MK3 (or MK3S/+) to ex
 * **Bed Leveling:** Smart Prusa system (G80), automatic grid extended to 470 mm.
 
 ---
+## 2. Mechnaical Parts modified and added
+* **MOSFET for the controle of the two heatbed:** The motherboard doesn't have the capacity to support the current of two beds, so we need to use two MOSFETs. We have used IRLZ44N. It is not necessary to use this one, but it is necessary to have one that has a continuous drain current of a minimum of 24 Amperes and a drain-to-source voltage of 24V. For the wiring, we have to connect the gates of the two MOSFETs in parallel with the bed output +. The sources of the two MOSFETs are connected in parallel to the ground. The drains are connected to the grounds of the beds. The ground of bed one is connected to one MOSFET, and the ground of the other bed to the other MOSFET; just in series.
+
+
+---
 
 ## 2. Firmware Modifications
 For future reference, here are the exact values that were modified compared to the factory Prusa firmware to adapt the brain to the new mechanics:
